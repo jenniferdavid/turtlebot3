@@ -1,0 +1,85 @@
+<robot>
+  <link name="radiation_sensor">
+    <inertial>
+      <mass value="0.001"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="1e-3" ixy="0" ixz="0" iyy="1e-3" iyz="0" izz="1e-3"/>
+    </inertial>
+    <visual>
+      <origin xyz="0.1 0 0.05" rpy="0 0 0" />
+      <geometry>
+        <box size="0.05 0.05 0.05" />
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="radiation_sensor" type="fixed">
+    <origin xyz="0 0 0.09" rpy="0 0 0"/>
+    <parent link="base_link" />
+    <child link="radiation_sensor" />
+  </joint>
+
+  <gazebo reference="radiation_sensor">
+        <sensor name="radiation_sensor" type="radiation_sensor">
+          <always_on> 1 </always_on>
+          <update_rate> 10.0 </update_rate>
+          <topic>sensor_0</topic>
+          <plugin name="radiation_sensor_plugin" filename="libradiation_sensor_plugin.so" />
+        </sensor>
+  </gazebo>
+  
+  
+  
+  
+  
+  
+  
+  
+  <link name="thermal_sensor">
+     <inertial>
+      <mass value="0.001"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="1e-3" ixy="0" ixz="0" iyy="1e-3" iyz="0" izz="1e-3"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.08" rpy="0 0 0" />
+      <geometry>
+        <box size="0.05 0.05 0.05" />
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="thermal_sensor" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <parent link="base_link" />
+    <child link="thermal_sensor" />
+  </joint>
+    
+   <gazebo reference="thermal_sensor">
+    <sensor name="thermal_sensor" type="camera">
+      <camera>
+        <horizontal_fov>1.047</horizontal_fov>
+        <image>
+          <width>320</width>
+          <height>240</height>
+        </image>
+        <clip>
+          <near>0.1</near>
+          <far>100</far>
+        </clip>
+      </camera>
+  <imageTopicName>/thermal_sensor/image_raw</imageTopicName>
+       <cameraInfoTopicName>/thermal_sensor/camera_info</cameraInfoTopicName>
+             <topic>thermal_camera</topic>
+      <plugin name="thermal_camera_controller" filename="libgazebo_ros_thermal_camera.so">
+      <always_on>1</always_on>
+      <update_rate>30</update_rate>
+      <visualize>true</visualize>
+      </plugin>
+    </sensor>
+    </gazebo>
+
+
+
+
+</robot>
